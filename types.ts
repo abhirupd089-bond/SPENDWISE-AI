@@ -1,85 +1,75 @@
 
+export type CurrencyCode = 'INR' | 'USD' | 'EUR' | 'GBP';
+
 export interface UserProfile {
   name: string;
   mobile: string;
-  monthlyIncome: number;
   country: string;
+  currency: CurrencyCode;
+  weeklyLimit: number;
 }
 
 export interface Expense {
   id: string;
   amount: number;
   category: string;
-  date: string; // ISO format
   description: string;
+  date: string;
+  isSubscription?: boolean;
 }
 
-export interface Subscription {
+export interface ImpulsePurchase {
   id: string;
-  name: string;
   amount: number;
-  lastUsedDate: string;
-  category: string;
-  isEssential: boolean;
-}
-
-export interface PendingPurchase {
-  id: string;
-  name: string;
-  amount: number;
-  createdAt: string; // ISO
   description: string;
+  createdAt: string;
+  status: 'pending' | 'completed' | 'cancelled';
 }
 
-export interface ViceGoal {
-  goalName: string;
+export interface Goal {
+  name: string;
   targetAmount: number;
-  currentSavings: number;
+  currentAmount: number;
   viceName: string;
   vicePrice: number;
-}
-
-export interface UserStats {
-  points: number;
-  level: number;
-  badges: string[];
 }
 
 export interface Reward {
   id: string;
   name: string;
-  description: string;
   cost: number;
   icon: string;
-  category: 'badge' | 'perk' | 'theme';
+  type: 'badge' | 'voucher';
 }
 
-export enum AppTab {
-  DASHBOARD = 'dashboard',
-  HISTORY = 'history',
-  PLANNER = 'planner',
-  SCANNER = 'scanner',
-  EDITOR = 'editor',
-  SETTINGS = 'settings',
-  REWARDS = 'rewards'
+export interface AppState {
+  user: UserProfile | null;
+  expenses: Expense[];
+  impulsePurchases: ImpulsePurchase[];
+  goal: Goal;
+  healthPoints: number;
+  inventory: string[]; // List of reward IDs owned
 }
 
-export interface AppSettings {
-  weeklyLimit: number;
-  phoneNumber: string;
-  monthlyIncome: number;
-  country: string;
-  currencySymbol: string;
-  language: string;
+export enum Country {
+  INDIA = 'India',
+  USA = 'USA',
+  UK = 'UK',
+  GERMANY = 'Germany'
 }
 
-export interface CountryConfig {
-  name: string;
-  code: string;
-  flag: string;
-  currency: string;
-  symbol: string;
-  callingCode: string;
-  locale: string;
-  translations: Record<string, string>;
-}
+export const CURRENCY_SYMBOLS: Record<CurrencyCode, string> = {
+  INR: '₹',
+  USD: '$',
+  EUR: '€',
+  GBP: '£'
+};
+
+export const REWARDS_CATALOG: Reward[] = [
+  { id: 'badge_newbie', name: 'Saver Apprentice', cost: 100, icon: '🌱', type: 'badge' },
+  { id: 'badge_warrior', name: 'Budget Warrior', cost: 300, icon: '🛡️', type: 'badge' },
+  { id: 'badge_master', name: 'Wealth Wizard', cost: 750, icon: '🧙‍♂️', type: 'badge' },
+  { id: 'voucher_coffee', name: 'Skip-a-Coffee Credit', cost: 200, icon: '☕', type: 'voucher' },
+  { id: 'voucher_pro', name: 'Gemini Pro Theme', cost: 500, icon: '🎨', type: 'voucher' },
+  { id: 'badge_gemini', name: 'AI Optimizer', cost: 1000, icon: '🤖', type: 'badge' },
+];

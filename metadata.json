@@ -1,6 +1,6 @@
 {
-  "name": "SpendWise AI",
-  "description": "A smart expense tracker with AI bill scanning, weekly analytics, and image-based expense editing using Gemini 2.5 Flash.",
+  "name": "Gemini Finance Pro",
+  "description": "A feature-rich personal finance app powered by Gemini for receipt scanning, voice-to-budget, predictive cash flow, and gamified savings goals.",
   "requestFramePermissions": [
     "camera",
     "microphone"
